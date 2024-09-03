@@ -9,3 +9,4 @@ keyboard
 pystray
 Pillow
 pyperclip
+winshell

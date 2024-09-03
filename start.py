@@ -2,6 +2,8 @@ import os
 import sys
 import subprocess
 import platform
+import winshell
+from win32com.client import Dispatch
 
 def check_python_and_pip():
     python_commands = ['python3', 'python', 'py']
@@ -67,7 +69,8 @@ def create_startup_script():
 
 def create_windows_startup():
     startup_path = os.path.join(os.getenv('APPDATA'), 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup')
-    bat_path = os.path.join(startup_path, 'skynet_assistant.bat')
+    bat_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'skynet_assistant.bat')
+    shortcut_path = os.path.join(startup_path, 'skynet_assistant.lnk')
     python_command, _ = check_python_and_pip()
     
     # Get the directory of the Python executable
@@ -78,10 +81,18 @@ def create_windows_startup():
     
     script_path = os.path.abspath('main.py')
     
+    # Create the bat file
     with open(bat_path, 'w') as f:
-        f.write('@echo off\nstart /min "{0}" "{1}"'.format(pythonw_path, script_path))
+        f.write('@echo off\nstart /min "" "{0}" "{1}"'.format(pythonw_path, script_path))
     
-    print("[ SKYNET ] Windows integration complete. Startup script created at: {0}".format(bat_path))
+    # Create the shortcut
+    shell = Dispatch('WScript.Shell')
+    shortcut = shell.CreateShortCut(shortcut_path)
+    shortcut.Targetpath = bat_path
+    shortcut.WorkingDirectory = os.path.dirname(bat_path)
+    shortcut.save()
+    
+    print("[ SKYNET ] Windows integration complete. Startup shortcut created at: {0}".format(shortcut_path))
 
 def create_linux_startup():
     home = os.path.expanduser('~')
