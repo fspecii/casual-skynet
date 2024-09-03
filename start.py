@@ -2,17 +2,9 @@ import os
 import sys
 import subprocess
 import platform
-import time
-
-def print_futuristic(text, delay=0.03):
-    for char in text:
-        sys.stdout.write(char)
-        sys.stdout.flush()
-        time.sleep(delay)
-    print()
 
 def check_requirements():
-    print_futuristic("[ SKYNET ] Initializing system components...")
+    print("[ SKYNET ] Initializing system components...")
     with open('requirements.txt', 'r') as f:
         requirements = f.read().splitlines()
     
@@ -20,12 +12,12 @@ def check_requirements():
         try:
             __import__(package)
         except ImportError:
-            print_futuristic(f"[ SKYNET ] Installing {package}...")
+            print(f"[ SKYNET ] Installing {package}...")
             subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-    print_futuristic("[ SKYNET ] All components initialized successfully.")
+    print("[ SKYNET ] All components initialized successfully.")
 
 def create_startup_script():
-    print_futuristic("[ SKYNET ] Configuring system integration...")
+    print("[ SKYNET ] Configuring system integration...")
     system = platform.system()
     if system == "Windows":
         create_windows_startup()
@@ -34,7 +26,7 @@ def create_startup_script():
     elif system == "Darwin":  # macOS
         create_macos_startup()
     else:
-        print_futuristic(f"[ SKYNET ] Error: Unsupported operating system: {system}")
+        print(f"[ SKYNET ] Error: Unsupported operating system: {system}")
 
 def create_windows_startup():
     startup_path = os.path.join(os.getenv('APPDATA'), 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup')
@@ -45,7 +37,7 @@ def create_windows_startup():
     with open(bat_path, 'w') as f:
         f.write(f'@echo off\nstart /min "{python_path}" "{script_path}"')
     
-    print_futuristic(f"[ SKYNET ] Windows integration complete. Startup script created at: {bat_path}")
+    print(f"[ SKYNET ] Windows integration complete. Startup script created at: {bat_path}")
 
 def create_linux_startup():
     home = os.path.expanduser('~')
@@ -68,7 +60,7 @@ Name=SkynetAssistant
 Comment=Activate Skynet AI Voice Assistant on login
 """)
     
-    print_futuristic(f"[ SKYNET ] Linux integration complete. Startup script created at: {desktop_file}")
+    print(f"[ SKYNET ] Linux integration complete. Startup script created at: {desktop_file}")
 
 def create_macos_startup():
     home = os.path.expanduser('~')
@@ -98,12 +90,12 @@ def create_macos_startup():
 </plist>
 """)
     
-    print_futuristic(f"[ SKYNET ] macOS integration complete. Startup script created at: {plist_file}")
+    print(f"[ SKYNET ] macOS integration complete. Startup script created at: {plist_file}")
 
 if __name__ == "__main__":
-    print_futuristic("[ SKYNET ] Welcome to Casual Skynet!", delay=0.05)
-    print_futuristic("[ SKYNET ] Initializing Casual Skynet AI Voice Assistant...", delay=0.05)
+    print("[ SKYNET ] Welcome to Casual Skynet!")
+    print("[ SKYNET ] Initializing Casual Skynet AI Voice Assistant...")
     check_requirements()
     create_startup_script()
-    print_futuristic("[ SKYNET ] System ready. Launching main program.", delay=0.05)
+    print("[ SKYNET ] System ready. Launching main program.")
     subprocess.run([sys.executable, 'main.py'])

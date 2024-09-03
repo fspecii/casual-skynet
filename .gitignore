@@ -1,0 +1,26 @@
+# Ignore settings file
+settings.ini
+
+# Python-related files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Compiled Python files
+*.pyc
