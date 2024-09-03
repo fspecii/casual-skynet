@@ -24,7 +24,7 @@ To use this tool, you'll need an API key from Groq, which you can obtain for fre
 git clone https://github.com/fspecii/casual-skynet
 cd casual-skynet
 python start.py
-
+```
 
 ## Installation
 
