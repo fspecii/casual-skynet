@@ -23,6 +23,7 @@ To use this tool, you'll need an API key from Groq, which you can obtain for fre
 ```bash
 git clone https://github.com/fspecii/casual-skynet
 cd casual-skynet
+pip install -r requirements.txt
 python start.py
 ```
 
