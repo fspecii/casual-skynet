@@ -1,0 +1,11 @@
+configparser
+requests
+pyaudio
+wave
+tkinter
+ttkthemes
+pynput
+keyboard
+pystray
+Pillow
+pyperclip
